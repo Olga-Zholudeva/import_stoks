@@ -9,4 +9,6 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 FILE_ERROR_TYPES = (OSError, csv.Error, UnicodeDecodeError)
-ORIGINAL_ERROR = Exception("Error")
+
+INPUT_FILE = "input.csv"
+RESULT_FILE = "result.txt"

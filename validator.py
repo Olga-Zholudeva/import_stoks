@@ -30,9 +30,15 @@ def check_quantity(
 
 def validate_data(row: dict[int, list[str]]) -> dict[str, int]:
     for row_number, row_content in row.items():
-        sku = check_sku(row_number, row_content[0])
-        quantity = check_quantity(row_number, row_content[1])
+        try:
+            sku = check_sku(row_number, row_content[0])
+        except IndexError:
+            logger.error(f"Error in row_number {row_number}: does not contain sku")
+            raise InvalidRowError(row_number=row_number, data_type="sku")
+        try:
+            quantity = check_quantity(row_number, row_content[1])
+        except IndexError:
+            logger.error(f"Error in row_number {row_number}: does not contain quantity")
+            raise InvalidRowError(row_number=row_number, data_type="quantity")
         return {sku: quantity}
     return {}
-
-
